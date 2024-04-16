@@ -31,7 +31,7 @@ By "lasgun mark" we mean a buffer position stored in =lasgun-mark-ring=.
 - =lasgun-also-push-mark-ring=: Also push lasgun marks to buffer-local =mark-ring=
 - =lasgun-use-lasgun-mark-overlay=: Use visual overlays for lasgun marks
 - =lasgun-persist-lasgun-mark-ring=: Persist =lasgun-mark-ring= after performing action (Can override when defining lasgun actions, see =define-lasgun-action= docstring.)
-- ==lasgun-persist-negation-prefix-arg=: Prefix arg with which to negate =lasgun-persist-lasgun-mark-ring= behavior
+- =lasgun-persist-negation-prefix-arg=: Prefix arg with which to negate =lasgun-persist-lasgun-mark-ring= behavior
 * =lasgun-mark= functions
 Lasgun provides an analogue to nearly every =avy-goto= function that marks position of selection. They are listed below. Like with =avy=, it is quite an overwhelming number of options; they are provided for completeness. It is recommended that the user stick to a few staples, unless they are using a method to help remember where each function is bound, like =hercules= or =hydra=.
 

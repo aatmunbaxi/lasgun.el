@@ -176,7 +176,7 @@ ARGS passed to CMD in an interactive call to CMD."
   "Enter `multiple-cursors-mode' at all positions in `lasgun-mark-ring'.
 
 When called with non-nil ARG, behavior of `lasgun-pop-before-make-multiple-cursors' is negated."
-  (interactive "P")
+  (interactive "p")
   (if  (require 'multiple-cursors nil 'no-error)
       (let* ((lasgun-ring-copy (ring-copy lasgun-mark-ring))
              (pop-arg (xor ARG lasgun-pop-before-make-multiple-cursors))
