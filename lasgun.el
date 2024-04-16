@@ -1,5 +1,15 @@
-;;; lasgun --- Summary
-;;; lasgun.el -*- lexical-binding: t; -*-
+;;; lasgun.el --- Avy-backed multi-marking -*- lexical-binding: t; -*-
+;; Copyright (C) 2024 Aatmun Baxi
+;;
+;; Author: Aatmun Baxi
+;; Maintainer: Aatmun Baxi
+;; Created: April 16, 2024
+;; Modified: April 16, 2024
+;; Version: 0.0.1
+;; Keywords: convenience
+;; Homepage: https://github.com/aatmunbaxi/lasgun.el
+;; Package-Requires: ((emacs "24.3"))
+;;
 ;;; Commentary:
 ;;;
 ;;; At its core, lasgun provides avy-backed marking of multiple positions
