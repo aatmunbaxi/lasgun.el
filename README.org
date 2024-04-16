@@ -19,7 +19,17 @@ Two built-in actions are provided: placing cursors at lasgun positions with =mul
 No other actions are provided out-of-the-box, but they can be defined by the user (see =define-lasgun-action=).
 
 Examples are given in [[file:hercules-lasgun-example.el][hercules-lasgun-example.el]].
+* Installation
+For example, via =straight=:
+#+begin_src emacs-lisp
+(straight-use-package
+ '(lasgun :type git :host github :repo "aatmunbaxi/lasgun.el")
+#+end_src
 
+DOOM emacs users can place this in their =package.el=:
+#+begin_src emacs-lisp
+(package! lasgun :recipe (:host github "aatmunbaxi/lasgun.el"))
+#+end_src
 * Dependencies
 - =avy=
 - Optional:
