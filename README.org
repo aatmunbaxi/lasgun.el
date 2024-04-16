@@ -2,21 +2,22 @@
 #+subtitle: Avy-backed marking of multiple positions
 
 =lasgun.el= provides =avy=-backed placement of multiple inactive marks in the current buffer.
-Once these marks have been collected, you may act on the marks.
+Once these marks have been collected, you can act on the marks in bulk, without disturbing your point (with some obvious exceptions).
 If this sounds familiar to how =avy= works, it is!
-=lasgun= simply generalizes the =Filter -> Select -> Act= loop that =avy= provides to one that allows for action upon multiple selected candidates.
+=lasgun= simply generalizes the =Filter -> Select -> Act= from =avy= to one that works on multiple selected candidates.
+
 * Highlights
 - Place =multiple-cursors.el= fake cursors at lasgun marks
 - =embark-act-all= on marked positions
 - Define your own actions with =define-lasgun-action=
-  - Such functions support prefix arguments (apart from the one reserved for =lasgun-persist-negation-prefix-arg=)
+  - These functions will support prefix arguments (apart from the one reserved for =lasgun-persist-negation-prefix-arg=)
 * Why =lasgun.el=?
 Avy provides an excellent =Filter -> Select -> Act= loop. The main question this package sets out to answer is /what if we'd like to leverage avy selection for multiple candidates, and perform an action on them in bulk?/ As such, using =lasgun.el= only makes sense when operating on *multiple* positions. In all other cases, =avy-actions= do just fine.
 
-In the spirit of =avy=, =lasgun.el= provides functions to use =avy= to select candidates, having finite memory of previous selections via a =ring=, and lets the user define actions to perform at the positions of those selections.
-Note by "selections" we mean the buffer position where the candidate was selected in avy.
+In the spirit of =avy=, =lasgun.el= provides functions to select candidates with =avy=, having memory of previous selections, and lets the user define actions to perform at the positions of those selections.
 Two built-in actions are provided: placing cursors at lasgun positions with =multiple-cursors=, and running =embark-act= on each position.
 No other actions are provided out-of-the-box, but they can be defined by the user (see =define-lasgun-action=).
+
 Examples are given in [[file:hercules-lasgun-example.el][hercules-lasgun-example.el]].
 
 * Dependencies
