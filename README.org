@@ -1,0 +1,55 @@
+#+title: lasgun.el
+#+subtitle: Avy-backed marking of multiple positions
+
+=lasgun.el= provides =avy=-backed placement of multiple inactive marks in the current buffer.
+Once these marks have been collected, you may act on the marks.
+If this sounds familiar to how =avy= works, it is!
+=lasgun= simply generalizes the =Filter -> Select -> Act= loop that =avy= provides to one that allows for action upon multiple selected candidates.
+* Highlights
+- Place =multiple-cursors.el= fake cursors at lasgun marks
+- =embark-act-all= on marked positions
+- Define your own actions with =define-lasgun-action=
+  - Such functions support prefix arguments (apart from the one reserved for =lasgun-persist-negation-prefix-arg=)
+* Why =lasgun.el=?
+Avy provides an excellent =Filter -> Select -> Act= loop. The main question this package sets out to answer is /what if we'd like to leverage avy selection for multiple candidates, and perform an action on them in bulk?/ As such, using =lasgun.el= only makes sense when operating on *multiple* positions. In all other cases, =avy-actions= do just fine.
+
+In the spirit of =avy=, =lasgun.el= provides functions to use =avy= to select candidates, having finite memory of previous selections via a =ring=, and lets the user define actions to perform at the positions of those selections.
+Note by "selections" we mean the buffer position where the candidate was selected in avy.
+Two built-in actions are provided: placing cursors at lasgun positions with =multiple-cursors=, and running =embark-act= on each position.
+No other actions are provided out-of-the-box, but they can be defined by the user (see =define-lasgun-action=).
+Examples are given in [[file:hercules-lasgun-example.el][hercules-lasgun-example.el]].
+
+* Dependencies
+- =avy=
+- Optional:
+  - =multiple-cursors= for =lasgun-make-multiple-cursors=
+  - =embark= for =lasgun-embark-act-all=
+* Customizing
+By "lasgun mark" we mean a buffer position stored in =lasgun-mark-ring=.
+- =lasgun-mark-ring-max=: Maximum number of lasgun marks
+- =lasgun-pop-before-make-cursors=: Place =multiple-cursors= cursors only at lasgun marks
+- =lasgun-also-push-mark-ring=: Also push lasgun marks to buffer-local =mark-ring=
+- =lasgun-use-lasgun-mark-overlay=: Use visual overlays for lasgun marks
+- =lasgun-persist-lasgun-mark-ring=: Persist =lasgun-mark-ring= after performing action (Can override when defining lasgun actions, see =define-lasgun-action= docstring.)
+- ==lasgun-persist-negation-prefix-arg=: Prefix arg with which to negate =lasgun-persist-lasgun-mark-ring= behavior
+* =lasgun-mark= functions
+Lasgun provides an analogue to nearly every =avy-goto= function that marks position of selection. They are listed below. Like with =avy=, it is quite an overwhelming number of options; they are provided for completeness. It is recommended that the user stick to a few staples, unless they are using a method to help remember where each function is bound, like =hercules= or =hydra=.
+
+- =lasgun-mark-end-of-line=
+- =lasgun-mark-line=
+- =lasgun-mark-word=
+- =lasgun-mark-char-2=
+- =lasgun-mark-symbol-1=
+- =lasgun-mark-subword-0=
+- =lasgun-mark-subword-1=
+- =lasgun-mark-char-timer=
+- =lasgun-mark-char-2-above=
+- =lasgun-mark-char-2-below=
+- =lasgun-mark-word-0-above=
+- =lasgun-mark-word-0-below=
+- =lasgun-mark-symbol-1-above=
+- =lasgun-mark-symbol-1-below=
+- =lasgun-mark-whitespace-end=
+- =lasgun-mark-overlay-at-mark=
+- =lasgun-mark-whitespace-end-above=
+- =lasgun-mark-whitespace-end-below=
