@@ -32,8 +32,12 @@ in `lasgun-mark-ring'. Requires `multiple-cursors'."
   :type :bool
   :group 'main)
 
-(defcustom lasgun-persist-negation-prefix-arg 4
-  "Numerical prefix arg making `lasgun-action' negate behavior of `lasgun-persist-lasgun-mark-ring'."
+(defcustom lasgun-persist-negation-prefix-arg 0
+  "Numerical prefix arg making `lasgun-action' negate behavior
+of `lasgun-persist-lasgun-mark-ring'.
+
+e.g. with value 0, preceding a lasgun action defined by `define-lasgun-action'
+with numeric prefix arg 0  will negate persistence behavior."
   :type 'int)
 
 (defcustom lasgun-persist-lasgun-mark-ring nil
@@ -223,8 +227,7 @@ When called with non-nil ARG, behavior of `lasgun-pop-before-make-multiple-curso
   "Define lasgun action with name NAME from interactive function FUN.
 
 Define lasgun action with name NAME, performing an interactive FUN at each
-position in `lasgun-mark-ring'. FUN-ARGS are passed to FUN, where FUN should
-accept a prefix arg.
+position in `lasgun-mark-ring'. FUN-ARGS are passed to FUN.
 
 PERSIST specifies if `lasgun-mark-ring' persists after
 FUN has been called at each position. If t, `lasgun-mark-ring' persists.
