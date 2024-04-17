@@ -220,13 +220,17 @@ When called with non-nil ARG, behavior of `lasgun-pop-before-make-multiple-curso
 
 
 (defmacro define-lasgun-action (NAME PERSIST FUN  &rest FUN-ARGS)
-  "Define lasgun action with name NAME.
+  "Define lasgun action with name NAME from interactive function FUN.
 
-Define lasgun action with name NAME, performing FUN at each position
-in `lasgun-mark-ring'. FUN-ARGS are passed to FUN. PERSIST specifies
-if `lasgun-mark-ring' persists after FUN has been called at each position. If t, `lasgun-mark-ring' persists.
+Define lasgun action with name NAME, performing an interactive FUN at each
+position in `lasgun-mark-ring'. FUN-ARGS are passed to FUN, where FUN should
+accept a prefix arg.
+
+PERSIST specifies if `lasgun-mark-ring' persists after
+FUN has been called at each position. If t, `lasgun-mark-ring' persists.
 If nil, fall back to `lasgun-persist-lasgun-mark-ring'.
-This behavior can be negated with prefix args, see `lasgun-persist-negation-prefix-arg'
+This behavior can be negated with prefix args, see
+`lasgun-persist-negation-prefix-arg'
 
 For example,
 
@@ -253,7 +257,7 @@ persist after operation."
                           (let ((current-prefix-arg nil))
                             (call-interactively ',FUN 't (vector ,@FUN-ARGS)))
                         (let ((current-prefix-arg ARG))
-                          (call-interactively ',FUN 't (vector ,@FUN-ARGS))))))
+                          (call-interactively ',FUN 't (vector  ,@FUN-ARGS))))))
                   (lasgun--safe-clear-lasgun-mark-ring negator)))))))
 
 (provide 'lasgun)
