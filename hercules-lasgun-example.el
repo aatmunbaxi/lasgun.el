@@ -45,7 +45,7 @@
                     (list :def #'lasgun-mark-line :which-key "Begin of line")
                     "s"
                     (list :def #'lasgun-mark-symbol-1 :which-key "symbol")
-                    "spc"
+                    "SPC"
                     (list :def #'lasgun-mark-whitespace-end :which-key "whitespace end")
 
                     ;; useful functions for interactivity
