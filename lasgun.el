@@ -190,7 +190,7 @@ ARGS passed to CMD in an interactive call to CMD."
   "Enter `multiple-cursors-mode' at all positions in `lasgun-mark-ring'.
 
 When called with non-nil ARG, behavior of `lasgun-pop-before-make-multiple-cursors' is negated."
-  (interactive "p")
+  (interactive "P")
   (if  (require 'multiple-cursors nil 'no-error)
       (let* ((lasgun-ring-copy (ring-copy lasgun-mark-ring))
              (pop-arg (xor ARG lasgun-pop-before-make-multiple-cursors))
@@ -245,7 +245,11 @@ persist after operation."
          (concat "Run `" (symbol-name FUN)
                  "\' on each position in \`lasgun-mark-ring' with"
                  (if PERSIST " \n" "out \n")
-                 "persistence of `lasgun-mark-ring'.\n\nWhen called with numeric universal arg\nequal to `lasgun-persist-negation-prefix-arg', persistence is negated.")))
+                 "persistence of `lasgun-mark-ring'.
+
+When called with numeric universal arg
+equal to `lasgun-persist-negation-prefix-arg', persistence is negated
+and FUN is called with numerical prefix arg 1.")))
     `(defun  ,NAME (ARG)
        ,docstring
        (interactive "p")
@@ -253,8 +257,8 @@ persist after operation."
               (message "lasgun-mark-ring empty."))
              (t (let ((negator (xor (= ARG lasgun-persist-negation-prefix-arg)
                                     ,PERSIST)))
-                  (dolist (pos (ring-elements lasgun-mark-ring))
-                    (save-excursion
+                  (save-excursion
+                    (dolist (pos (ring-elements lasgun-mark-ring))
                       (goto-char pos)
                       (if (= ARG lasgun-persist-negation-prefix-arg)
                           (let ((current-prefix-arg nil))
