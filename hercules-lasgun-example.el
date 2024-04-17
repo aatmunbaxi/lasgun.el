@@ -1,5 +1,5 @@
-;;; hercules-lasgun-example
-;;;
+;;; hercules-lasgun-example  -*- lexical-binding: t; -*-
+
 ;;; Commentary:
 ;;;
 ;;; Provides a demo setup for using lasgun.el with the hercules
@@ -15,7 +15,7 @@
 ;;;
 ;;; Requires general, hercules, and lasgun.
 ;;;
-;;; hercules-lasgun-example.el -*- lexical-binding: t; -*-
+;;; hercules-lasgun-example.el
 (require 'hercules)
 (require 'lasgun)
 (require 'general)
@@ -36,17 +36,17 @@
 (defvar-keymap lasgun-mode-map)
 (general-define-key :keymaps
                     '(lasgun-mode-map)
-                    ;; lasgun mark functions
+                    ;; lasgun MARK functions
                     "c"
-                    (list :def #'lasgun-mark-char-timer :which-key "Char timer")
+                    (list :def #'lasgun-mark-char-timer :which-key "char timer")
                     "w"
-                    (list :def #'lasgun-mark-word-0 :which-key "Word")
+                    (list :def #'lasgun-mark-word-0 :which-key "word")
                     "l"
                     (list :def #'lasgun-mark-line :which-key "Begin of line")
                     "s"
-                    (list :def #'lasgun-mark-symbol-1 :which-key "Symbol")
+                    (list :def #'lasgun-mark-symbol-1 :which-key "symbol")
                     "spc"
-                    (list :def #'lasgun-mark-whitespace-end :which-key "Whitespace end")
+                    (list :def #'lasgun-mark-whitespace-end :which-key "whitespace end")
 
                     ;; useful functions for interactivity
                     "x"
