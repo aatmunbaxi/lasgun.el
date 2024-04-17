@@ -2,7 +2,7 @@
 #+subtitle: Avy-backed marking of multiple positions
 
 
-[[file:demo.gif]]
+[[file:lasgun-demo.gif]]
 
 =lasgun.el= (lays-gun) provides =avy=-backed, actionable placement of multiple inactive marks in the current buffer.
 Once these marks have been collected, you can act on the marks in bulk, without disturbing your point (with some obvious exceptions).
