@@ -21,7 +21,7 @@
 ;;; Code:
 (defgroup lasgun nil
   "Avy-backed marking of positions."
-  :group 'main)
+  :group 'convenience)
 
 (defcustom lasgun-pop-before-make-multiple-cursors t
   "Pop `lasgun-mark-ring' and jump before making cursors.
@@ -29,8 +29,7 @@
 When nil, makes cursor at point in addition to positions in
 `lasgun-mark-ring'. When t, makes cursors only at positions
 in `lasgun-mark-ring'. Requires `multiple-cursors'."
-  :type :bool
-  :group 'main)
+  :type 'boolean)
 
 (defcustom lasgun-persist-negation-prefix-arg 0
   "Numerical prefix arg making `lasgun-action' negate behavior
@@ -48,28 +47,24 @@ destroy overlays and clear the `lasgun-mark-ring'.
 When nil, lasgun actions defined via `define-lasgun-action' will clear
 the `lasgun-mark-ring' and overlays associated with the buffer positions, unless overriden
 by universal prefix. See `lasgun-persist-negation-prefix-arg'."
-  :type 'boolean
-  :group 'main)
+  :type 'boolean)
 
 (defcustom lasgun-mark-ring-max 16
   "Maximum capacity for `lasgun-mark-ring'."
-  :type 'integer
-  :group 'main)
+  :type 'integer)
 
 (defcustom lasgun-also-push-mark-ring nil
   "When t, push `mark-ring' as well as `lasgun-mark-ring'.
 
 Note: when t, marks made with lasgun will persist in tsomehe `mark-ring' regardless
 of the value of `lasgun-persist-lasgun-mark-ring.'"
-  :type 'boolean
-  :group 'main)
+  :type 'boolean)
 
 (defcustom lasgun-use-lasgun-mark-overlay t
   "Use visual overlays for lasgun marks.
 
 When t, use `lasgun-mark-face' as overlay at each position."
-  :type 'boolean
-  :group 'main)
+  :type 'boolean)
 
 (defvar lasgun-mark-ring (make-ring lasgun-mark-ring-max)
   "Mark ring for lasgun marks. Capacity customizable with `lasgun-mark-ring-max'.")
