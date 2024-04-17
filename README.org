@@ -5,7 +5,7 @@
 #+caption: Demo with provided example configuration
 [[file:demo.gif]]
 
-=lasgun.el= provides =avy=-backed placement of multiple inactive marks in the current buffer.
+=lasgun.el= (lays-gun) provides =avy=-backed, actionable placement of multiple inactive marks in the current buffer.
 Once these marks have been collected, you can act on the marks in bulk, without disturbing your point (with some obvious exceptions).
 If this sounds familiar to how =avy= works, it is!
 =lasgun= simply generalizes the =Filter -> Select -> Act= from =avy= to one that works on multiple selected candidates.
