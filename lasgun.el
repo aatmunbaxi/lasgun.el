@@ -184,6 +184,7 @@ ARGS passed to CMD in an interactive call to CMD."
 (defun lasgun-make-multiple-cursors (ARG)
   "Enter `multiple-cursors-mode' at all positions in `lasgun-mark-ring'.
 
+Invocation always clears `lasgun-mark-ring'.
 When called with non-nil ARG, behavior of `lasgun-pop-before-make-multiple-cursors' is negated."
   (interactive "P")
   (if  (require 'multiple-cursors nil 'no-error)
@@ -203,7 +204,8 @@ When called with non-nil ARG, behavior of `lasgun-pop-before-make-multiple-curso
 
 (defun lasgun-embark-act-all ()
   "Call `emark-act-all' on candidates.
-`embark-act' is NOT called on object at point."
+
+Invocation always clears `lasgun-mark-ring'."
   (interactive)
   (if (require 'embark nil 'no-error)
       (progn
