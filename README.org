@@ -3,7 +3,7 @@
 
 
 #+caption: Demo with provided example configuration
-[[file:2024-04-16 19-18-13.mkv]]
+[[file:demo.gif]]
 
 =lasgun.el= provides =avy=-backed placement of multiple inactive marks in the current buffer.
 Once these marks have been collected, you can act on the marks in bulk, without disturbing your point (with some obvious exceptions).
