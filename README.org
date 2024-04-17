@@ -13,9 +13,16 @@ If this sounds familiar to how =avy= works, it is!
 - Avy provides an excellent =Filter -> Select -> Act= loop. =lasgun.el= generalizes this to allow multiple runs of =Filter -> Select=, and =Acting= when all candidates are selected.
   - So using =lasgun.el= only makes sense when acting on multiple candidates in bulk
 
-Admittedly, this package is extremely simple; the bulk of the package is all of two macros.
-It does not come with a nice user interface, though a small example of one with [[https://github.com/cyruseuros/hercules][hercules]] is in [[file:hercules-lasgun-example.el][hercules-lasgun-example.el]] (with dependency on [[https://github.com/noctuid/general.el][general.el]] and [[https://github.com/justbur/emacs-which-key][which-key]]).
-Users are encouraged to build their own setup.
+- This package is extremely simple; the bulk of it is all of two macros.
+- It only provides ingredients, though a small example of a user interface with [[https://github.com/cyruseuros/hercules][hercules]] is provided: [[file:hercules-lasgun-example.el][hercules-lasgun-example.el]] (note: depends on [[https://github.com/noctuid/general.el][general.el]] and [[https://github.com/justbur/emacs-which-key][which-key]]).
+
+* Usage
+- Call a =lasgun-mark= function to mark a buffer position via =avy=
+  - Repeat until desired positions are marked
+- Decide to act on each of these positions or not
+  - Actions can be defined with the =define-lasgun-action= macro. See its docstring for information.
+
+If not acting at lasgun marks, it might be useful to set =lasgun-also-push-mark-ring= to =t=, so lasgun marks remain in the =mark-ring= after clearing the =lasgun-mark-ring=.
 * Installation
 For example, via =straight=:
 #+begin_src emacs-lisp
@@ -50,7 +57,7 @@ By "lasgun mark" we mean a buffer position stored in =lasgun-mark-ring=.
 
 - =lasgun-mark-face=: Face used to visually indicated lasgun marks
 * =lasgun-mark= functions
-Lasgun provides an analogue to nearly every =avy-goto= function that marks position of selection. They are listed below. Like with =avy=, it is quite an overwhelming number of options; they are provided for completeness. It is recommended that the user stick to a few staples, unless they are using a method to help remember where each function is bound, like =hercules= or =hydra=.
+Lasgun provides analogues to nearly every =avy-goto= function. They are listed below. IMHO, it is an overwhelming number of choices; they are simply provided for completeness. It is recommended that you stick to a few staples, unless you're using something to remember where each function is bound, like =hercules= or =hydra=.
 
 - =lasgun-mark-end-of-line=
 - =lasgun-mark-line=
