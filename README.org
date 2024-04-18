@@ -43,7 +43,7 @@ If your package manager does not support git recipes, a simple =git clone= and p
 in your =init.el= will do.
 * Example =transient= Configuration
 The demo gif shows an example UI with hercules.
-[[https://www.reddit.com/user/Hammar_Morty/][u/Hammar_Morty]] kindly provided a close translation making use of =transient=:
+[[https://www.reddit.com/r/emacs/comments/1c6epwl/comment/l02r9vx/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button][u/Hammar_Morty kindly provided]] a close translation making use of =transient=:
 #+begin_src emacs-lisp
   (require 'transient)
 
