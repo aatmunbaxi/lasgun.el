@@ -69,6 +69,8 @@ The demo gif shows an example UI with hercules.
       ("l" "Downcase" lasgun-action-downcase-word)
       ("K" "Kill word" lasgun-action-kill-word)
       ("q" "Quit" transient-quit-one)]])
+
+  (global-set-key (kbd "C-c t g") 'lasgun-transient)
 #+end_src
 * Dependencies
 - =avy=
