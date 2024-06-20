@@ -52,7 +52,7 @@ This can hook into =lasgun= easily:
     (forward-latex-math)
     (math-delimiters-insert))
 
-  (define-lasgun-action lasgun-action-toggle-math-delims nil toggle-math-delims)
+  (define-lasgun-action lasgun-action-toggle-math-delims t toggle-math-delims)
 #+end_src
 Here, the =forward-latex-delims= function is defined in [[https://tex.stackexchange.com/a/52798][this]] TeX stack exchange answer.
 
