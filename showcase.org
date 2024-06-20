@@ -27,7 +27,7 @@ Some example declarations are below
 #+begin_src emacs-lisp
   ;; (define-lasgun-action NAME PERSIST FUN &optional FUN-ARGS)
   (define-lasgun-action lasgun-action-kill-word nil kill-word)
-  (define-lasgun-action lasgun-action-kill-sexp kill-sexp nil)
+  (define-lasgun-action lasgun-action-kill-sexp nil kill-sexp)
   (define-lasgun-action lasgun-action-kill-whole-line nil kill-whole-line)
 
   (define-lasgun-action lasgun-action-upcase-word t upcase-word)
