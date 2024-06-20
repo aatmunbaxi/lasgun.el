@@ -58,6 +58,10 @@ Some example uses are below
 Note that persistence makes little sense on actions that kill text, since the marked positions would point nowhere important after text is killed.
 
 
+https://github.com/aatmunbaxi/lasgun.el/assets/130934815/a87fe7b9-a522-4a2d-a9f7-7e67429ba84b
+
+
+
 <a id="org1ad2936"></a>
 
 # Spell Correction
@@ -65,6 +69,10 @@ Note that persistence makes little sense on actions that kill text, since the ma
 The previous actions might not see much use; here's one I use often: spell correction with `jinx`.
 This might seem like a retread of `jinx-correct-all`, but notice that we can target specific words to correct instead of being dropped into an interactive checker for the whole buffer.
 Jinx *does* let you restrict your checking to a specific region (see `jinx-correct` docstring), but it requires you to activate a region beforehand, which I find can interrupt my train of thought.
+
+
+
+https://github.com/aatmunbaxi/lasgun.el/assets/130934815/b15e7b2c-bfdf-434a-93ba-503f1d1a0d48
 
 
 <a id="orgc1dfa42"></a>
@@ -84,6 +92,10 @@ This can hook into `lasgun` easily:
     (define-lasgun-action lasgun-action-toggle-math-delims t toggle-math-delims)
 
 Here, the `forward-latex-delims` function is defined in [this](https://tex.stackexchange.com/a/52798) TeX stack exchange answer.
+
+
+
+https://github.com/aatmunbaxi/lasgun.el/assets/130934815/701bc1bc-2919-46a6-9817-62f08d14d685
 
 
 <a id="org6576e63"></a>
@@ -143,6 +155,10 @@ Hopefully with these two function a pattern emerges for writing `lasgun` actions
 Roughly, you just need to loop through the `lasgun-mark-ring`, visit each position, do whatever it is you want to do at that position, then clear up the ring if needed.
 
 
+https://github.com/aatmunbaxi/lasgun.el/assets/130934815/6b1539c7-f47a-4069-b983-6639ba7a213b
+
+
+
 <a id="org3650fa7"></a>
 
 # A Compromise for the Indecisive
@@ -162,6 +178,10 @@ We can write a function to prompt the user for the name of a function that they 
           (lasgun-clear-lasgun-mark-ring))))
 
 This way, you can use a function at any time so long as you don't need arguments and the like.
+
+
+
+https://github.com/aatmunbaxi/lasgun.el/assets/130934815/87ef6ed7-5f16-4e71-85c6-7e98eee84310
 
 
 <a id="org5b82edf"></a>
