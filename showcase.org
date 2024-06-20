@@ -23,12 +23,12 @@ There another thing you must specify to define an action via this macro: to pers
 This can be useful if you want to compose several simple actions together.
 More on this later (spoiler: you can reverse this behavior interactively).
 
-Some example declarations are below
+Some example uses are below
 #+begin_src emacs-lisp
   ;; (define-lasgun-action NAME PERSIST FUN &optional FUN-ARGS)
   (define-lasgun-action lasgun-action-kill-word nil kill-word)
   (define-lasgun-action lasgun-action-kill-sexp nil kill-sexp)
-  (define-lasgun-action lasgun-action-kill-whole-line nil kill-whole-line)
+  (define-lasgun-action lasgun-action-kill-whole-line nil kill-sexp)
 
   (define-lasgun-action lasgun-action-upcase-word t upcase-word)
 
@@ -56,6 +56,7 @@ This can hook into =lasgun= easily:
 #+end_src
 Here, the =forward-latex-delims= function is defined in [[https://tex.stackexchange.com/a/52798][this]] TeX stack exchange answer.
 
+
 * More Complex Actions
 ** Teleportation and Yanking
 "Teleportation" in avy-speak refers to killing a faraway sexp and yanking it to the current point.
@@ -67,21 +68,17 @@ For this example, we our teleportation will yank the killed sexps from the =kill
     (interactive "p")
     (let ((size (ring-length lasgun-mark-ring))
           (lasgun-list (ring-elements lasgun-mark-ring)))
-      (unwind-protect
-          (progn
-            (save-excursion
-              (dolist (pos lasgun-list)
-                (goto-char pos)
-                (backward-sexp)
-                (kill-sexp ARG)))
+          (save-excursion
+            (dolist (pos lasgun-list)
+              (goto-char pos)
+              (backward-sexp)
+              (kill-sexp ARG)))
             ;; killed sexps now in `kill-ring'
-            (let ((separator (read-from-minibuffer "Separator: " nil nil nil nil " ")))
-              (dotimes (i size)
-                (insert (substring-no-properties (nth i kill-ring)))
-                (unless (eq i (1- size))
-                  (insert separator)))))
-        (user-error "%s" "Error teleporting sexps"))
-      (lasgun-clear-lasgun-mark-ring)))
+          (let ((separator (read-from-minibuffer "Separator: " nil nil nil nil " ")))
+            (dotimes (i size)
+              (insert (substring-no-properties (nth i kill-ring)))
+              (unless (eq i (1- size))
+                (insert separator))))))
 #+end_src
 You'll notice that we can make the function support prefix arguments.
 
@@ -93,21 +90,20 @@ In a similar vein, we can choose not to kill the text and just copy it to the cu
     (interactive "p")
     (let ((size (ring-length lasgun-mark-ring))
           (lasgun-list (ring-elements lasgun-mark-ring)))
-      (unwind-protect
-          (save-window-excursion
-            (dolist (pos lasgun-list)
-              (let ((end nil))
-                (goto-char pos)
-                (forward-sexp ARG)
-                (setq end (point))
-                (kill-new (buffer-substring pos end)))))
-        ;;  sexps now in `kill-ring'
-        (let ((separator (read-from-minibuffer "Separator: " nil nil nil nil " ")))
-          (dotimes (i size)
-            (insert (substring-no-properties (nth i kill-ring)))
-            (unless (eq i (1- size))
-              (insert separator)))))
-      (message "Error yanking sexps")))
+      (save-excursion
+        (dolist (pos lasgun-list)
+          (let ((end nil)))
+          (goto-char pos)
+          (forward-sexp ARG)
+          (setq end (point))
+          (kill-new (buffer-substring pos end))))
+      ;;  sexps now in `kill-ring'
+      (let ((separator (read-from-minibuffer "Separator: " nil nil nil nil " ")))
+        (dotimes (i size)
+          (insert (substring-no-properties (nth i kill-ring)))
+          (unless (eq i (1- size))
+            (insert separator))))))
+
 #+end_src
 
 Hopefully with these two function a pattern emerges for writing =lasgun= actions.
