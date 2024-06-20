@@ -1,15 +1,4 @@
 
-# Table of Contents
-
-1.  [Structure of a `lasgun` action](#orgf18b59d)
-2.  [Simple actions with `define-lasgun-action`](#orgf8d7b6c)
-3.  [Spell Correction](#org1ad2936)
-    1.  [Toggling LaTeX Math Delimiters](#orgc1dfa42)
-4.  [More Complex Actions](#org6576e63)
-    1.  [Teleportation and Yanking](#orgbfab779)
-5.  [A Compromise for the Indecisive](#org3650fa7)
-6.  [A Note on Persistence](#org5b82edf)
-
 Here we describe some example uses of the `lasgun.el` to give users an idea of how one could adapt it to their use case.
 
 Recall that a flow for `lasgun.el` is:
