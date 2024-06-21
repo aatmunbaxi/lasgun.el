@@ -1,4 +1,4 @@
-`lasgun.el` By Examples
+`lasgun.el` by Examples
 =======================
 Here we describe some example uses of the `lasgun.el` to give users an idea of how one could adapt it to their use case.
 
