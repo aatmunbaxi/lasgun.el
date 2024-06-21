@@ -8,7 +8,7 @@ Recall that a flow for `lasgun.el` is:
 -   Perform action on each buffer position with `lasgun-action-*`
 
 By default, `lasgun.el` comes with 2 actions defined: `lasgun-embark-act-all` and `lasgun-make-multiple-cursors`, which depend on `embark` and `multiple-cursors`, respectively.
-It is up to the user to define other actions beyond this, which we describe a process to do here.
+It is up to the user to define other actions beyond this; let's do some.
 
 
 <a id="orgf18b59d"></a>
@@ -70,9 +70,9 @@ https://github.com/aatmunbaxi/lasgun.el/assets/130934815/b15e7b2c-bfdf-434a-93ba
 ## Toggling LaTeX Math Delimiters
 
 Sometimes when editing LaTeX/Org documents with math typesetting, I realize that a particular math snippet I wrote in inline math (respectively, display math) would work better if written in display math (respectively, inline math).
-At the same time, I use the [math-delimiters](https://github.com/oantolin/math-delimiters) package as a simple API to insert and manipulate math delimiters (overkill to have a whole package, I know).
+At the same time, I use the [math-delimiters](https://github.com/oantolin/math-delimiters) package as a simple way to insert and manipulate math delimiters (overkill to have a whole package, albeit a small one).
 In the package is a function that can toggle between inline math and display math delimiters when your point is immediately after the closing delimiter.
-This can hook into `lasgun` easily:
+Let's write a lasgun action that can toggle the type of math delimiters after marking any position inside the delims.  
 
     (defun toggle-math-delims ()
       (interactive)
@@ -82,20 +82,16 @@ This can hook into `lasgun` easily:
     (define-lasgun-action lasgun-action-toggle-math-delims nil toggle-math-delims)
 
 Here, the `forward-latex-delims` function is defined in [this](https://tex.stackexchange.com/a/52798) TeX stack exchange answer.
-
-
+Once our point is immediately in front of the LaTeX math snippet, the function `math-delimiters-insert` will toggle the type.
 
 https://github.com/aatmunbaxi/lasgun.el/assets/130934815/701bc1bc-2919-46a6-9817-62f08d14d685
 
 
-<a id="org6576e63"></a>
-
-# More Complex Actions
 
 
 <a id="orgbfab779"></a>
 
-## Teleportation and Copying
+# Teleportation and Copying
 
 "Teleportation" in avy-speak refers to killing a faraway sexp and yanking it to the current point.
 With multiple selections, it's not sensible to yank them all at the current point without some processing, lest we end up with garbled compound words.
@@ -159,13 +155,10 @@ We can write a function to prompt the user for the name of a function that they 
     (defun lasgun-prompt-action ()
       (interactive)
       (let ((command (read-from-minibuffer "Command: ")))
-        (unwind-protect
-            (save-excursion
-              (dolist (pos (ring-elements lasgun-mark-ring))
-                (goto-char pos)
-                (call-interactively (intern command) t)))
-          (user-error "%s" "Error running command")
-          (lasgun-clear-lasgun-mark-ring))))
+        (save-excursion
+          (dolist (pos (ring-elements lasgun-mark-ring))
+            (goto-char pos)
+            (call-interactively (intern command) t)))))
 
 This way, you can use a function at any time so long as you don't need arguments and the like.
 I foresee more creative hackers seeing methods to improve this substantially.
@@ -186,10 +179,12 @@ The interactive behavior is preferred over the globally defined variables.
 Consider the following configuration:
 
     (setq lasgun-persist-lasgun-mark-ring nil)
-    (define-lasgun-action lasgun-action-upcase-word t kill-word)
+    (define-lasgun-action lg-action-foo t foo)
 
-The global behavior is to not persist the mark ring after acting, but the function `lasgun-action-upcase-word` locally asks to persist the mark ring, so it will persist.
-If the user wants the `lasgun-mark-ring` cleared, but only realizes this right before calling `lasgun-action-upcase-word` (say, to get right into marking other positions), they may call `lasgun-action-upcase-word` with numeric prefix equal to `lasgun-persist-negation-prefix-arg` (default: `0`).
+The global behavior is to not persist the mark ring after acting, but the function `lg-action-foo` locally asks to persist the mark ring, so it will persist.
+If the user wants the `lasgun-mark-ring` cleared, but only realizes this right before calling `lg-action-foo` (say, to get right into marking other positions), they may call `lg-action-foo` with numeric prefix equal to `lasgun-persist-negation-prefix-arg` (default: `0`).
 
 For inspiration on how to achieve this behavior in your own `lasgun-actions`, see the source of `define-lasgun-action` and `lasgun--safe-clear-mark-ring`.
+
+
 
