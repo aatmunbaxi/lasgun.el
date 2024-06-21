@@ -1,4 +1,5 @@
-
+`lasgun.el` By Examples
+=======================
 Here we describe some example uses of the `lasgun.el` to give users an idea of how one could adapt it to their use case.
 
 Recall that a flow for `lasgun.el` is:
@@ -94,7 +95,7 @@ https://github.com/aatmunbaxi/lasgun.el/assets/130934815/701bc1bc-2919-46a6-9817
 
 <a id="orgbfab779"></a>
 
-## Teleportation and Yanking
+## Teleportation and Copying
 
 "Teleportation" in avy-speak refers to killing a faraway sexp and yanking it to the current point.
 With multiple selections, it's not sensible to yank them all at the current point without some processing, lest we end up with garbled compound words.
@@ -121,7 +122,7 @@ You'll notice that we can make the function support prefix arguments.
 
 In a similar vein, we can choose not to kill the text and just copy it to the current point with a separator:
 
-    (defun lasgun-action-yank-separated-sexps (ARG)
+    (defun lasgun-action-copy-separated-sexps (ARG)
       "Kill words at lasgun selections and place them at point."
       (interactive "p")
       (let ((size (ring-length lasgun-mark-ring))
@@ -167,7 +168,7 @@ We can write a function to prompt the user for the name of a function that they 
           (lasgun-clear-lasgun-mark-ring))))
 
 This way, you can use a function at any time so long as you don't need arguments and the like.
-
+I foresee more creative hackers seeing methods to improve this substantially.
 
 
 https://github.com/aatmunbaxi/lasgun.el/assets/130934815/87ef6ed7-5f16-4e71-85c6-7e98eee84310
