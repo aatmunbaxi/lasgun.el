@@ -12,10 +12,8 @@ If this sounds familiar to how =avy= works, it is!
 More examples on usage can be found in the [[file:showcase.md][demo by examples]].
 * Why =lasgun.el=?
 - Avy provides an excellent =Filter -> Select -> Act= loop. =lasgun.el= generalizes this to allow multiple runs of =Filter -> Select=, and =Acting= when all candidates are selected.
-  - So using =lasgun.el= only makes sense when acting on multiple candidates in bulk
-
-- This package is extremely simple; the bulk of it is all of two macros.
-- It only provides ingredients, though a small example of a user interface with [[https://github.com/cyruseuros/hercules][hercules]] is provided: [[file:hercules-lasgun-example.el][hercules-lasgun-example.el]] (note: depends on [[https://github.com/noctuid/general.el][general.el]] and [[https://github.com/justbur/emacs-which-key][which-key]]).
+  - Therefore, using =lasgun.el= only makes sense when acting on multiple candidates in bulk
+  - This being said, it should not be considered a strict superset of avy's features
 
 * Usage
 - Call a =lasgun-mark= function to mark a buffer position via =avy=
