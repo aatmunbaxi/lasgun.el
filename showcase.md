@@ -39,7 +39,8 @@ Some example uses are below
     ;; (define-lasgun-action NAME PERSIST FUN &optional FUN-ARGS)
     (define-lasgun-action lasgun-action-kill-word nil kill-word)
     (define-lasgun-action lasgun-action-kill-sexp nil kill-sexp)
-    (define-lasgun-action lasgun-action-kill-whole-line nil kill-sexp)
+    
+    (define-lasgun-action lasgun-action-kill-whole-line nil kill-whole-line)
     
     (define-lasgun-action lasgun-action-upcase-word t upcase-word)
     
@@ -95,7 +96,7 @@ https://github.com/aatmunbaxi/lasgun.el/assets/130934815/701bc1bc-2919-46a6-9817
 
 "Teleportation" in avy-speak refers to killing a faraway sexp and yanking it to the current point.
 With multiple selections, it's not sensible to yank them all at the current point without some processing, lest we end up with garbled compound words.
-For this example, we our teleportation will yank the killed sexps from the `kill-ring` with a separator which the user is prompted for.
+For this example, our teleportation will yank the killed sexps from the `kill-ring` with a separator between them which the user is prompted for.
 
     (defun lasgun-action-teleport-sexps (ARG)
       "Kill sexps at lasgun selections and place them at point, with separator."
@@ -105,16 +106,15 @@ For this example, we our teleportation will yank the killed sexps from the `kill
             (save-excursion
               (dolist (pos lasgun-list)
                 (goto-char pos)
-                (backward-sexp)
                 (kill-sexp ARG)))
               ;; killed sexps now in `kill-ring'
             (let ((separator (read-from-minibuffer "Separator: " nil nil nil nil " ")))
               (dotimes (i size)
                 (insert (substring-no-properties (nth i kill-ring)))
-                (unless (eq i (1- size))
+                (unless (= i (1- size))
                   (insert separator))))))
 
-You'll notice that we can make the function support prefix arguments.
+You'll notice that we can make the function support numeric prefix arguments.
 
 In a similar vein, we can choose not to kill the text and just copy it to the current point with a separator:
 
@@ -125,11 +125,11 @@ In a similar vein, we can choose not to kill the text and just copy it to the cu
             (lasgun-list (ring-elements lasgun-mark-ring)))
         (save-excursion
           (dolist (pos lasgun-list)
-            (let ((end nil)))
-            (goto-char pos)
-            (forward-sexp ARG)
-            (setq end (point))
-            (kill-new (buffer-substring pos end))))
+            (let ((end nil))
+              (goto-char pos)
+              (forward-sexp ARG)
+              (setq end (point))
+              (kill-new (buffer-substring pos end)))))
         ;;  sexps now in `kill-ring'
         (let ((separator (read-from-minibuffer "Separator: " nil nil nil nil " ")))
           (dotimes (i size)
@@ -137,8 +137,8 @@ In a similar vein, we can choose not to kill the text and just copy it to the cu
             (unless (eq i (1- size))
               (insert separator))))))
 
-Hopefully with these two function a pattern emerges for writing `lasgun` actions.
-Roughly, you just need to loop through the `lasgun-mark-ring`, visit each position, do whatever it is you want to do at that position, then clear up the ring if needed.
+Hopefully with these two functions a pattern emerges for writing more nontrivial `lasgun` actions.
+You just need to loop through the `lasgun-mark-ring`, visit each position, do whatever it is you want to do at that position, then clear up the ring if needed.
 
 
 https://github.com/aatmunbaxi/lasgun.el/assets/130934815/6b1539c7-f47a-4069-b983-6639ba7a213b
@@ -161,7 +161,7 @@ We can write a function to prompt the user for the name of a function that they 
             (call-interactively (intern command) t)))))
 
 This way, you can use a function at any time so long as you don't need arguments and the like.
-I foresee more creative hackers seeing methods to improve this substantially.
+I foresee more creative hackers having ideas to improve this substantially.
 
 
 https://github.com/aatmunbaxi/lasgun.el/assets/130934815/87ef6ed7-5f16-4e71-85c6-7e98eee84310
