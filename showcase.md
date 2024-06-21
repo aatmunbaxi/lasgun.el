@@ -44,7 +44,7 @@ Some example uses are below
     
     (define-lasgun-action lasgun-action-upcase-word t upcase-word)
     
-    (define-lasgun-action lasgun-action-comment-line nil comment-line)
+    (define-lasgun-action lasgun-action-comment-line t comment-line)
 
 Note that persistence makes little sense on actions that kill text, since the marked positions would point nowhere important after text is killed.
 
