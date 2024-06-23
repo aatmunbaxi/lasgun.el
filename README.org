@@ -71,6 +71,45 @@ The demo gif shows an example UI with hercules.
 
   (global-set-key (kbd "C-c t g") 'lasgun-transient)
 #+end_src
+* Example Embark Action Menu
+If transients (or their half-siblings hydra, hercules, etc) aren't your thing, here is a skeleton for an =embark= dispatch menu for lasgun actions.
+#+begin_src emacs-lisp
+    (defun my-embark-lasgun-mark ()
+      "Provides `embark-target-finders' function for lasgun marks
+  when point is on lasgun mark"
+      ;; can make this logic as complicated/simple as you want
+      (when (ring-member lasgun-mark-ring (point))
+        `(lasgun-mark
+            ,(buffer-substring-no-properties (point)  (point))
+            ,(point) . ,(1+ (point)))))
+
+    ;; tell embark to search for lasgun-marks
+    (add-to-list 'embark-target-finders #'my-embark-lasgun-mark)
+
+    (defvar-keymap embark-lasgun-mark-actions
+      :doc "Embark action keymap for lasgun targets"
+      ;; your keybinds and actions here
+      "SPC" #'lasgun-make-multiple-cursors)
+
+    ;; embark will use your keymap for lasgun-marks dispatch menu
+    (add-to-list 'embark-keymap-alist '(lasgun-mark . embark-lasgun-mark-actions))
+#+end_src
+The targeting function =my-embark-lasgun-mark= will match a lasgun mark if your point is currently on a lasgun mark, meaning you'd have to jump to one such mark before invocation of =embark-act= (does this defeat the purpose of lasgun? Up to you).
+
+Fortunately, the logic of such a targeting function is limited only by your ability to write elisp.
+Here's one that will intercept all calls of =embark-act= to target lasgun marks so long as the =lasgun-mark-ring= is nonempty:
+#+begin_src emacs-lisp
+  (defun my-embark-lasgun-mark ()
+    "Use lasgun embark actions so long as lasgun marks exist"
+    (unless (ring-empty-p lasgun-mark-ring)
+      (let ((lgmark (ring-ref lasgun-mark-ring 0)))
+        `(lasgun-mark  ,(buffer-substring-no-properties lgmark lgmark)
+          ,lgmark . ,lgmark))))
+#+end_src
+See the docstring for =embark-target-finders= information if you want to hack on the targeting function.
+
+Add your keys for defined actions to =embark-lasgun-mark-actions= to expand the functionality!
+More information on defining your own embark target actions can be found in the [[https://github.com/oantolin/embark?tab=readme-ov-file#defining-actions-for-new-categories-of-targets][embark documentation.]]
 * Dependencies
 - =avy=
 - Optional:
