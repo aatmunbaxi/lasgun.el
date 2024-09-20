@@ -141,14 +141,17 @@ CMD is an avy command someaccepting ARG that negates
 `avy-all-windows' behavior with interactive arguments. e.g. `avy-goto-char-2'.
 
 ARGS passed to CMD in an interactive call to CMD."
+  (declare (indent 1))
   (let ((docstring (concat "Push `lasgun-mark-ring' via `" (symbol-name CMD) "' selection.")))
     `(defun ,NAME ()
        ,docstring
        (interactive)
-       (save-excursion
-         (let ((current-prefix-arg (if avy-all-windows '(4) nil)))
-           (call-interactively ',CMD t (vector ,@args)))
-         (lasgun-push-mark-no-activate)))))
+       (let* ((current-prefix-arg (if avy-all-windows '(4) nil))
+              (pt (car (save-excursion
+                         (call-interactively ',CMD t (vector ,@args))))))
+         (if avy-action
+             (funcall avy-action pt)
+           (lasgun-push-mark-no-activate pt))))))
 
 (define--lasgun-avy-mark lasgun-mark-end-of-line avy-goto-end-of-line)
 (define--lasgun-avy-mark lasgun-mark-word-0 avy-goto-word-0)
